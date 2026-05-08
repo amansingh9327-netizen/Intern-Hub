@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>InternHub – Unlock Your Career!</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ============================================================
+   INTERNHUB – LIGHT THEME (Unstop-inspired)
+   Font: Plus Jakarta Sans
+   Primary: #4F46E5 (indigo)  Accent: #06B6D4 (cyan)
+============================================================ */
+:root{
+  --bg:#F0F4FF;
+  --bg2:#E8EEFF;
+  --white:#FFFFFF;
+  --primary:#4F46E5;
+  --primary-light:#EEF2FF;
+  --primary-hover:#4338CA;
+  --accent:#06B6D4;
+  --accent-light:#ECFEFF;
+  --green:#10B981;
+  --green-light:#ECFDF5;
+  --orange:#F59E0B;
+  --orange-light:#FFFBEB;
+  --red:#EF4444;
+  --red-light:#FEF2F2;
+  --text:#0F172A;
+  --text2:#334155;
+  --muted:#64748B;
+  --muted2:#94A3B8;
+  --border:#E2E8F0;
+  --border2:#CBD5E1;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --shadow-md:0 4px 24px rgba(0,0,0,.10);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.14);
+  --r:12px;
+  --r-sm:8px;
+  --r-lg:18px;
+  --r-xl:24px;
+  --t:all .2s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#f1f5f9}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;min-height:100vh}
+.page.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================  LAYOUT  */
+.app-shell{display:flex;min-height:100vh}
+
+/* ── LEFT SIDEBAR (icon rail) ── */
+.icon-rail{
+  width:72px;background:var(--white);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;
+  padding:16px 0;position:fixed;top:0;left:0;height:100vh;z-index:300;
+  gap:4px;
+}
+.rail-logo{
+  width:42px;height:42px;background:var(--primary);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:.85rem;margin-bottom:12px;
+  cursor:pointer;
+}
+.rail-divider{width:36px;height:1px;background:var(--border);margin:8px 0}
+.rail-btn{
+  width:44px;height:44px;border-radius:12px;border:none;background:transparent;
+  color:var(--muted);font-size:1.1rem;cursor:pointer;transition:var(--t);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.rail-btn:hover{background:var(--primary-light);color:var(--primary)}
+.rail-btn.active{background:var(--primary-light);color:var(--primary)}
+.rail-btn .rail-tip{
+  position:absolute;left:58px;background:var(--text);color:#fff;
+  font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:6px;
+  white-space:nowrap;pointer-events:none;opacity:0;transition:var(--t);
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.rail-btn:hover .rail-tip{opacity:1}
+.rail-notif{position:absolute;top:7px;right:7px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--white)}
+
+/* ── MAIN AREA ── */
+.main-area{margin-left:72px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+/* ── TOP NAV ── */
+.top-nav{
+  height:60px;background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:16px;padding:0 28px;
+  position:sticky;top:0;z-index:200;
+}
+.top-nav-logo{
+  font-weight:800;font-size:1.25rem;color:var(--primary);
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  margin-right:8px;
+}
+.top-nav-logo span{color:var(--text)}
+.search-bar{
+  flex:1;max-width:520px;
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg);border:1.5px solid var(--border);border-radius:100px;
+  padding:9px 18px;transition:var(--t);
+}
+.search-bar:focus-within{border-color:var(--primary);background:var(--white);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.search-bar i{color:var(--muted2);font-size:.9rem}
+.search-bar input{border:none;background:none;outline:none;font-family:inherit;font-size:.875rem;color:var(--text);flex:1}
+.search-bar input::placeholder{color:var(--muted2)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-user-avatar{
+  width:36px;height:36px;border-radius:50%;background:var(--primary);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;cursor:pointer;
+}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;
+  font-size:.875rem;padding:9px 20px;border-radius:var(--r-sm);
+  border:none;cursor:pointer;transition:var(--t);
+}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover);transform:translateY(-1px);box-shadow:0 4px 16px rgba(79,70,229,.3)}
+.btn-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
+.btn-outline:hover{background:var(--primary-light)}
+.btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.btn-ghost:hover{background:var(--bg);color:var(--text);border-color:var(--border2)}
+.btn-white{background:var(--white);color:var(--primary);border:1.5px solid var(--border)}
+.btn-white:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{background:#059669}
+.btn-danger{background:var(--red-light);color:var(--red);border:1px solid #fca5a5}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-sm{padding:7px 14px;font-size:.8rem;border-radius:var(--r-sm)}
+.btn-lg{padding:13px 28px;font-size:1rem}
+.btn-full{width:100%;justify-content:center}
+.btn-biz{
+  background:var(--white);border:1.5px solid var(--border);color:var(--text2);
+  border-radius:100px;padding:8px 18px;font-size:.85rem;
+}
+.btn-biz:hover{border-color:var(--primary);color:var(--primary)}
+.btn-biz i{color:var(--primary)}
+
+/* ============================================================  LANDING  */
+.landing-content{padding:32px 32px 48px}
+
+/* Hero */
+.hero-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;gap:24px}
+.hero-text h1{
+  font-size:clamp(2rem,4vw,2.8rem);font-weight:800;
+  color:var(--text);line-height:1.15;margin-bottom:12px;
+}
+.hero-text h1 span{color:var(--primary)}
+.hero-meta{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);font-weight:500}
+.hero-meta i{color:var(--orange)}
+.hero-meta strong{color:var(--text)}
+
+/* Category cards */
+.category-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:14px;margin-bottom:40px;
+}
+.cat-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);
+  padding:20px 12px;text-align:center;cursor:pointer;transition:var(--t);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.cat-card:hover{border-color:var(--primary);box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.cat-card.active{border-color:var(--primary);background:var(--primary-light)}
+.cat-icon{
+  width:56px;height:56px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  margin-bottom:2px;
+}
+.cat-card:nth-child(1) .cat-icon{background:#FEF3C7}
+.cat-card:nth-child(2) .cat-icon{background:#DBEAFE}
+.cat-card:nth-child(3) .cat-icon{background:#FCE7F3}
+.cat-card:nth-child(4) .cat-icon{background:#F3E8FF}
+.cat-card:nth-child(5) .cat-icon{background:#ECFDF5}
+.cat-card:nth-child(6) .cat-icon{background:#FFF7ED}
+.cat-card:nth-child(7) .cat-icon{background:#EFF6FF}
+.cat-label{font-size:.8rem;font-weight:700;color:var(--text2);line-height:1.3}
+
+/* Section header */
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.sec-title{font-size:1.2rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';width:4px;height:22px;background:var(--primary);border-radius:2px}
+.sec-link{font-size:.85rem;font-weight:600;color:var(--primary);cursor:pointer}
+.sec-link:hover{text-decoration:underline}
+
+/* Opportunity cards */
+.opp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:40px}
+.opp-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);
+  overflow:hidden;cursor:pointer;transition:var(--t);
+}
+.opp-card:hover{border-color:var(--primary);box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.opp-img{height:130px;object-fit:cover;width:100%;background:linear-gradient(135deg,#4F46E5,#06B6D4)}
+.opp-img-placeholder{
+  height:130px;display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;
+}
+.opp-body{padding:16px}
+.opp-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.opp-tag{
+  font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.tag-intern{background:#EEF2FF;color:var(--primary)}
+.tag-live{background:#ECFDF5;color:var(--green)}
+.tag-hot{background:#FEF2F2;color:var(--red)}
+.tag-new{background:#ECFEFF;color:var(--accent)}
+.opp-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.4}
+.opp-org{font-size:.8rem;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.opp-org i{color:var(--muted2);font-size:.75rem}
+.opp-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}
+.opp-deadline{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.opp-apply-btn{
+  background:var(--primary-light);color:var(--primary);
+  border:none;border-radius:var(--r-sm);padding:6px 14px;
+  font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:var(--t);
+}
+.opp-apply-btn:hover{background:var(--primary);color:#fff}
+
+/* Stats strip */
+.stats-strip{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);
+  display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:40px;overflow:hidden;
+}
+.stat-cell{padding:24px;text-align:center;border-right:1px solid var(--border)}
+.stat-cell:last-child{border-right:none}
+.stat-val{font-size:1.9rem;font-weight:800;color:var(--primary);margin-bottom:4px}
+.stat-lbl{font-size:.8rem;color:var(--muted);font-weight:500}
+
+/* ============================================================  APPLY FORM  */
+.apply-wrap{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 60px)}
+.apply-side{
+  background:var(--white);border-right:1px solid var(--border);
+  padding:40px 28px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;
+}
+.apply-side-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green-light);color:var(--green);
+  font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;margin-bottom:20px;border:1px solid #6ee7b7;
+}
+.apply-side h2{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:12px;line-height:1.25}
+.apply-side>p{font-size:.875rem;color:var(--muted);line-height:1.7;margin-bottom:28px}
+.perk-item{display:flex;align-items:center;gap:10px;font-size:.875rem;color:var(--text2);margin-bottom:12px}
+.perk-check{width:22px;height:22px;border-radius:50%;background:var(--green-light);border:1.5px solid #6ee7b7;color:var(--green);display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0}
+.apply-side-depts{margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
+.apply-side-depts p{font-size:.75rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.dept-tags{display:flex;flex-wrap:wrap;gap:6px}
+.dept-tag-sm{
+  background:var(--bg);border:1px solid var(--border);
+  padding:5px 12px;border-radius:100px;font-size:.75rem;color:var(--muted);
+}
+
+.apply-main{background:var(--bg);padding:40px 48px;overflow-y:auto}
+.apply-main-header{margin-bottom:32px}
+.apply-main-header h2{font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.apply-main-header p{font-size:.875rem;color:var(--muted)}
+
+/* Step indicator */
+.step-bar{display:flex;align-items:center;gap:0;margin-bottom:36px}
+.step-item{display:flex;align-items:center;flex:1}
+.step-circle{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;flex-shrink:0;transition:var(--t);
+  border:2px solid var(--border);background:var(--white);color:var(--muted);
+}
+.step-circle.active{border-color:var(--primary);background:var(--primary);color:#fff}
+.step-circle.done{border-color:var(--green);background:var(--green);color:#fff}
+.step-label{font-size:.75rem;font-weight:600;color:var(--muted);margin-left:8px;white-space:nowrap}
+.step-label.active{color:var(--primary)}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 12px}
+.step-line.done{background:var(--green)}
+
+/* Form */
+.form-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:28px;margin-bottom:20px}
+.form-card-title{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.form-card-title i{color:var(--primary);font-size:.9rem}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f-grp{margin-bottom:18px}
+.f-grp label{display:block;font-size:.78rem;font-weight:700;color:var(--text2);margin-bottom:6px;letter-spacing:.03em}
+.req{color:var(--red)}
+.f-ctrl{
+  width:100%;padding:11px 15px;
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.875rem;color:var(--text);
+  outline:none;transition:var(--t);appearance:none;
+}
+.f-ctrl::placeholder{color:var(--muted2)}
+.f-ctrl:focus{border-color:var(--primary);background:var(--white);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+textarea.f-ctrl{resize:vertical;min-height:110px}
+.f-hint{font-size:.75rem;color:var(--muted2);margin-top:5px}
+.f-err{font-size:.77rem;color:var(--red);min-height:18px;margin-top:4px;display:flex;align-items:center;gap:4px}
+.f-err:not(:empty)::before{content:'⚠ '}
+
+/* Skills */
+.skills-input-wrap{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);
+  padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  cursor:text;transition:var(--t);min-height:46px;
+}
+.skills-input-wrap:focus-within{border-color:var(--primary);background:var(--white);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.skills-input-wrap input{border:none;background:none;outline:none;font-family:inherit;font-size:.875rem;color:var(--text);min-width:120px;flex:1;padding:3px 2px}
+.skills-input-wrap input::placeholder{color:var(--muted2)}
+.skill-chip-added{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--primary-light);color:var(--primary);
+  padding:4px 10px;border-radius:100px;font-size:.78rem;font-weight:700;
+}
+.skill-chip-added button{background:none;border:none;cursor:pointer;color:var(--primary);opacity:.6;padding:0;line-height:1;font-size:.85rem;display:flex}
+.skill-chip-added button:hover{opacity:1}
+.skill-suggestions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.sug-chip{
+  background:var(--white);border:1.5px solid var(--border);
+  padding:5px 13px;border-radius:100px;font-size:.78rem;font-weight:600;
+  color:var(--muted);cursor:pointer;transition:var(--t);
+}
+.sug-chip:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.sug-chip.used{opacity:.4;pointer-events:none;cursor:default}
+
+/* File drop */
+.drop-zone{
+  border:2px dashed var(--border2);border-radius:var(--r);
+  background:var(--bg);padding:36px 20px;text-align:center;
+  cursor:pointer;transition:var(--t);
+}
+.drop-zone:hover{border-color:var(--primary);background:var(--primary-light)}
+.drop-zone.active-drop{border-color:var(--primary);background:var(--primary-light)}
+.drop-zone.has-file{border-color:var(--green);border-style:solid;background:var(--green-light)}
+.drop-icon{font-size:2rem;color:var(--muted2);margin-bottom:10px;transition:var(--t)}
+.drop-zone:hover .drop-icon{color:var(--primary)}
+.drop-zone.has-file .drop-icon{color:var(--green)}
+.drop-text{font-size:.875rem;color:var(--muted);margin-bottom:4px}
+.drop-text strong{color:var(--text)}
+.drop-hint{font-size:.76rem;color:var(--muted2)}
+.file-ok-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--green-light);color:var(--green);
+  padding:6px 16px;border-radius:100px;font-size:.82rem;font-weight:600;
+  margin-top:12px;border:1px solid #6ee7b7;
+}
+
+/* Agree */
+.agree-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
+.agree-row input{width:18px;height:18px;margin-top:2px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.agree-row label{font-size:.84rem;color:var(--muted);cursor:pointer;line-height:1.55}
+.agree-row a{color:var(--primary);font-weight:600}
+
+/* ============================================================  SUCCESS  */
+.center-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 60px);padding:40px 20px}
+.center-card{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:var(--r-xl);padding:48px 44px;width:100%;max-width:480px;text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.success-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--green-light);border:2px solid #6ee7b7;
+  color:var(--green);font-size:1.8rem;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 24px;animation:pop .45s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.center-card h2{font-size:1.7rem;font-weight:800;color:var(--text);margin-bottom:10px}
+.center-card p{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.app-id-box{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:16px;margin-bottom:24px;
+}
+.app-id-label{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.app-id-val{font-size:1.15rem;font-weight:800;color:var(--primary);letter-spacing:.06em}
+.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ============================================================  TRACK  */
+.track-wrap{max-width:580px;width:100%}
+.track-wrap h2{font-size:1.7rem;font-weight:800;color:var(--text);margin-bottom:8px}
+.track-wrap>p{font-size:.9rem;color:var(--muted);margin-bottom:24px}
+.track-input-row{display:flex;gap:10px;margin-bottom:20px}
+.track-input-row input{
+  flex:1;padding:12px 18px;background:var(--white);border:1.5px solid var(--border);
+  border-radius:var(--r-sm);font-family:inherit;font-size:.9rem;color:var(--text);outline:none;transition:var(--t);
+}
+.track-input-row input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.track-input-row input::placeholder{color:var(--muted2)}
+.track-result{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px;display:none}
+
+/* Status timeline */
+.status-tl{display:flex;align-items:flex-start;position:relative;margin-top:20px}
+.status-tl::before{content:'';position:absolute;top:12px;left:12px;right:12px;height:2px;background:var(--border);z-index:0}
+.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1}
+.tl-dot{
+  width:24px;height:24px;border-radius:50%;
+  border:2px solid var(--border);background:var(--white);
+  display:flex;align-items:center;justify-content:center;font-size:.65rem;
+  transition:var(--t);
+}
+.tl-dot.done{border-color:var(--green);background:var(--green);color:#fff}
+.tl-dot.current{border-color:var(--primary);background:var(--primary);color:#fff}
+.tl-dot.fail{border-color:var(--red);background:var(--red);color:#fff}
+.tl-label{font-size:.72rem;font-weight:600;color:var(--muted);text-align:center}
+
+/* ============================================================  ADMIN LOGIN  */
+.login-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-xl);
+  padding:48px 40px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);
+}
+.login-logo{
+  width:52px;height:52px;background:var(--primary);border-radius:14px;
+  color:#fff;font-size:1.3rem;display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;box-shadow:0 4px 16px rgba(79,70,229,.3);
+}
+.login-card h2{font-size:1.7rem;font-weight:800;color:var(--text);margin-bottom:6px}
+.login-card>p{font-size:.875rem;color:var(--muted);margin-bottom:28px}
+.login-hint{
+  background:var(--primary-light);border:1px solid #c7d2fe;border-radius:var(--r-sm);
+  padding:11px 16px;margin-bottom:20px;font-size:.82rem;color:var(--primary);
+  display:flex;align-items:center;gap:8px;font-weight:500;
+}
+.login-hint i{flex-shrink:0}
+.login-hint code{background:#e0e7ff;padding:2px 7px;border-radius:4px;font-size:.8rem;font-weight:700}
+.pw-wrap{position:relative}
+.pw-wrap .f-ctrl{padding-right:44px}
+.pw-eye{
+  position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;
+  transition:var(--t);padding:4px;
+}
+.pw-eye:hover{color:var(--primary)}
+
+/* ============================================================  ADMIN DASHBOARD  */
+.dash-shell{display:flex;height:100vh;overflow:hidden}
+
+/* Admin sidebar */
+.dash-side{
+  width:236px;background:var(--white);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;
+}
+.dash-side-head{padding:20px 20px 16px;border-bottom:1px solid var(--border)}
+.dash-brand{font-size:1.1rem;font-weight:800;color:var(--primary);display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.dash-brand-sub{font-size:.72rem;color:var(--muted);letter-spacing:.06em;font-weight:500}
+.dash-nav{flex:1;padding:12px 12px;display:flex;flex-direction:column;gap:2px}
+.dash-nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 14px;border-radius:var(--r-sm);
+  font-size:.875rem;font-weight:600;color:var(--muted);
+  cursor:pointer;transition:var(--t);border:none;background:none;
+  font-family:'Plus Jakarta Sans',sans-serif;width:100%;text-align:left;
+}
+.dash-nav-item:hover{background:var(--bg);color:var(--text)}
+.dash-nav-item.active{background:var(--primary-light);color:var(--primary)}
+.dash-nav-item i{width:18px;text-align:center;font-size:.9rem}
+.dash-nav-badge{
+  margin-left:auto;background:var(--primary);color:#fff;
+  font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:100px;
+}
+.dash-side-foot{padding:14px;border-top:1px solid var(--border)}
+.dash-logout{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:10px 14px;border-radius:var(--r-sm);
+  background:var(--red-light);color:var(--red);
+  border:1px solid #fca5a5;font-family:inherit;font-size:.875rem;font-weight:600;
+  cursor:pointer;transition:var(--t);
+}
+.dash-logout:hover{background:var(--red);color:#fff}
+
+/* Admin main */
+.dash-main{flex:1;overflow-y:auto;background:var(--bg);padding:28px}
+.dash-tab{display:none}
+.dash-tab.active{display:block;animation:fadeUp .25s ease}
+.dash-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap}
+.dash-header-left h2{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:3px}
+.dash-header-left p{font-size:.84rem;color:var(--muted)}
+.dash-header-right{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Stat cards */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.kpi-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:18px 20px;cursor:pointer;transition:var(--t);position:relative;overflow:hidden;
+}
+.kpi-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.kp{color:var(--orange)}.kpi-card.kp::after{background:var(--orange)}
+.kpi-card.ks{color:var(--green)}.kpi-card.ks::after{background:var(--green)}
+.kpi-card.kr{color:var(--red)}.kpi-card.kr::after{background:var(--red)}
+.kpi-card.kt{color:var(--primary)}.kpi-card.kt::after{background:var(--primary)}
+.kpi-num{font-size:2rem;font-weight:800;margin-bottom:3px;line-height:1}
+.kpi-lbl{font-size:.75rem;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.kpi-icon{position:absolute;top:14px;right:16px;font-size:1.3rem;opacity:.15}
+
+/* Filter */
+.filter-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.search-box2{
+  flex:1;min-width:200px;display:flex;align-items:center;gap:9px;
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);
+  padding:10px 16px;transition:var(--t);
+}
+.search-box2:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+.search-box2 i{color:var(--muted2);flex-shrink:0;font-size:.85rem}
+.search-box2 input{border:none;background:none;outline:none;font-family:inherit;font-size:.875rem;color:var(--text);flex:1}
+.search-box2 input::placeholder{color:var(--muted2)}
+.f-sel{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);
+  padding:10px 14px;font-family:inherit;font-size:.84rem;color:var(--text2);
+  cursor:pointer;outline:none;transition:var(--t);
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;
+}
+.f-sel:focus{border-color:var(--primary)}
+.f-sel option{background:var(--white)}
+
+/* Table */
+.table-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.data-tbl{width:100%;border-collapse:collapse}
+.data-tbl thead{background:#F8FAFC}
+.data-tbl th{
+  padding:12px 16px;text-align:left;
+  font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;border-bottom:1px solid var(--border);
+}
+.data-tbl tbody tr{border-bottom:1px solid var(--border);transition:var(--t)}
+.data-tbl tbody tr:last-child{border-bottom:none}
+.data-tbl tbody tr:hover{background:#F8FAFC}
+.data-tbl td{padding:14px 16px;font-size:.875rem;vertical-align:middle}
+.td-id{font-size:.72rem;color:var(--muted2);font-family:monospace;letter-spacing:.04em}
+.td-name strong{color:var(--text);font-weight:700;display:block;margin-bottom:2px}
+.td-name span{font-size:.78rem;color:var(--muted)}
+.td-skills{display:flex;flex-wrap:wrap;gap:4px}
+.sk-badge{background:var(--bg);border:1px solid var(--border);padding:2px 8px;border-radius:100px;font-size:.7rem;color:var(--muted)}
+.more-sk{font-size:.7rem;color:var(--muted2)}
+.st-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:100px;font-size:.77rem;font-weight:700;
+}
+.st-pill::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.st-pill.Pending{background:var(--orange-light);color:#92400E}.st-pill.Pending::before{background:var(--orange)}
+.st-pill.Selected{background:var(--green-light);color:#065F46}.st-pill.Selected::before{background:var(--green)}
+.st-pill.Rejected{background:var(--red-light);color:#991B1B}.st-pill.Rejected::before{background:var(--red)}
+.td-acts{display:flex;gap:6px}
+.act-btn2{
+  padding:5px 11px;border-radius:var(--r-sm);font-size:.76rem;font-weight:700;
+  border:none;cursor:pointer;font-family:inherit;transition:var(--t);
+  display:flex;align-items:center;gap:4px;
+}
+.ab-view{background:var(--bg);color:var(--muted)}.ab-view:hover{background:var(--primary-light);color:var(--primary)}
+.ab-sel{background:var(--green-light);color:var(--green)}.ab-sel:hover{background:var(--green);color:#fff}
+.ab-rej{background:var(--red-light);color:var(--red)}.ab-rej:hover{background:var(--red);color:#fff}
+.empty-row td{padding:50px;text-align:center;color:var(--muted);font-size:.9rem}
+.empty-row i{font-size:2rem;margin-bottom:10px;opacity:.3;display:block}
+
+/* Analytics */
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-box{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px}
+.chart-box h3{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:18px;display:flex;align-items:center;gap:7px}
+.chart-box h3 i{color:var(--primary)}
+.bar-item2{margin-bottom:13px}
+.bar-meta2{display:flex;justify-content:space-between;font-size:.8rem;color:var(--text2);margin-bottom:5px;font-weight:500}
+.bar-track2{background:var(--bg);border-radius:100px;height:7px;overflow:hidden}
+.bar-fill2{height:100%;border-radius:100px;transition:width 1s ease}
+.donut-wrap{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.donut-legend{display:flex;flex-direction:column;gap:9px}
+.leg-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text2);font-weight:500}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.time-bars-wrap{display:flex;align-items:flex-end;gap:8px;height:90px}
+.tb-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tb-val{font-size:.68rem;color:var(--primary);font-weight:700;min-height:14px}
+.tb-bar{width:100%;border-radius:4px 4px 0 0;background:var(--primary);opacity:.7;min-height:3px;transition:height .8s ease}
+.tb-lbl{font-size:.68rem;color:var(--muted)}
+
+/* Settings */
+.settings-col{max-width:560px;display:flex;flex-direction:column;gap:18px}
+.set-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px}
+.set-card h3{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:5px}
+.set-card .sc-p{font-size:.84rem;color:var(--muted);margin-bottom:18px;line-height:1.5}
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:.875rem;color:var(--text2);font-weight:500}
+.tog-row:last-of-type{border-bottom:none;padding-bottom:0}
+.tog{position:relative;display:inline-block;width:40px;height:22px}
+.tog input{opacity:0;width:0;height:0}
+.tog-sl{position:absolute;inset:0;background:var(--border2);border-radius:100px;cursor:pointer;transition:var(--t)}
+.tog-sl::before{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;left:3px;top:3px;transition:var(--t);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tog input:checked+.tog-sl{background:var(--primary)}
+.tog input:checked+.tog-sl::before{transform:translateX(18px)}
+.danger-set{border-color:#fca5a5}
+.danger-set h3{color:var(--red)}
+
+/* ============================================================  MODAL  */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(15,23,42,.5);backdrop-filter:blur(6px);
+  z-index:1000;align-items:center;justify-content:center;padding:20px;
+}
+.modal-bg.open{display:flex}
+.modal-box{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-xl);
+  padding:36px;width:100%;max-width:580px;max-height:88vh;overflow-y:auto;
+  position:relative;animation:slideUp .3s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--shadow-lg);
+}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  color:var(--muted);cursor:pointer;transition:var(--t);font-size:.85rem;
+}
+.modal-close:hover{background:var(--red-light);color:var(--red);border-color:#fca5a5}
+.m-meta{font-size:.75rem;color:var(--muted);margin-bottom:5px}
+.m-name{font-size:1.8rem;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.2}
+.m-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+.m-cell label{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:3px}
+.m-cell p{font-size:.875rem;color:var(--text);font-weight:500}
+.m-cover{background:var(--bg);border-radius:var(--r-sm);padding:14px;font-size:.875rem;color:var(--text2);line-height:1.7;margin-bottom:18px}
+.m-actions{display:flex;gap:10px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--border)}
+.m-status-sel{
+  margin-left:auto;background:var(--bg);border:1.5px solid var(--border);
+  border-radius:var(--r-sm);padding:8px 14px;font-family:inherit;font-size:.84rem;
+  color:var(--text2);cursor:pointer;outline:none;transition:var(--t);
+}
+.m-status-sel:focus{border-color:var(--primary)}
+.m-status-sel option{background:var(--white)}
+
+/* ============================================================  TOAST  */
+.toast-stack{position:fixed;bottom:24px;right:24px;z-index:9000;display:flex;flex-direction:column;gap:10px}
+.toast2{
+  display:flex;align-items:center;gap:12px;
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:13px 18px;max-width:340px;box-shadow:var(--shadow-lg);
+  animation:toastIn .3s cubic-bezier(.34,1.56,.64,1);font-size:.875rem;color:var(--text);
+  position:relative;overflow:hidden;
+}
+@keyframes toastIn{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
+.toast2.out{animation:toastOut .25s ease forwards}
+@keyframes toastOut{to{transform:translateX(50px);opacity:0}}
+.toast-ic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.toast2.success .toast-ic{background:var(--green-light);color:var(--green)}
+.toast2.error .toast-ic{background:var(--red-light);color:var(--red)}
+.toast2.info .toast-ic{background:var(--primary-light);color:var(--primary)}
+.toast-prog{position:absolute;bottom:0;left:0;height:2px;animation:shrink 3.2s linear forwards}
+@keyframes shrink{from{width:100%}to{width:0}}
+.toast2.success .toast-prog{background:var(--green)}
+.toast2.error .toast-prog{background:var(--red)}
+.toast2.info .toast-prog{background:var(--primary)}
+
+/* Responsive */
+@media(max-width:1024px){
+  .category-grid{grid-template-columns:repeat(4,1fr)}
+  .opp-grid{grid-template-columns:1fr 1fr}
+  .analytics-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .icon-rail{display:none}
+  .main-area{margin-left:0}
+  .apply-wrap{grid-template-columns:1fr}
+  .apply-side{display:none}
+  .f-row{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .dash-side{width:180px}
+  .opp-grid{grid-template-columns:1fr}
+  .category-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:480px){
+  .category-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .m-info-grid{grid-template-columns:1fr}
+  .modal-box{padding:24px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  LANDING PAGE
+============================================================ -->
+<div id="page-landing" class="page active">
+  <div class="app-shell">
+    <!-- Icon Rail -->
+    <div class="icon-rail">
+      <div class="rail-logo" onclick="showPage('page-landing')">IH</div>
+      <div class="rail-divider"></div>
+      <button class="rail-btn active" onclick="showPage('page-landing')" title="Home">
+        <i class="fa fa-house"></i>
+        <span class="rail-tip">Home</span>
+      </button>
+      <button class="rail-btn" onclick="showPage('page-apply')" title="Apply">
+        <i class="fa fa-file-pen"></i>
+        <span class="rail-tip">Apply</span>
+      </button>
+      <button class="rail-btn" onclick="showPage('page-track')" title="Track">
+        <i class="fa fa-radar"></i>
+        <span class="rail-tip">Track Status</span>
+      </button>
+      <div class="rail-divider"></div>
+      <button class="rail-btn" onclick="showPage('page-login')" title="Admin">
+        <i class="fa fa-shield-halved"></i>
+        <span class="rail-tip">Admin Panel</span>
+      </button>
+      <button class="rail-btn" style="margin-top:auto" title="Notifications">
+        <i class="fa fa-bell"></i>
+        <div class="rail-notif"></div>
+        <span class="rail-tip">Notifications</span>
+      </button>
+    </div>
+
+    <!-- Main area -->
+    <div class="main-area">
+      <!-- Top nav -->
+      <nav class="top-nav">
+        <div class="top-nav-logo" onclick="showPage('page-landing')">
+          <span style="color:var(--primary)">intern</span><span>hub</span>
+        </div>
+        <div class="search-bar">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="Search Opportunities"/>
+        </div>
+        <div class="nav-right">
+          <button class="btn btn-ghost btn-sm" onclick="showPage('page-track')"><i class="fa fa-search"></i> Track</button>
+          <button class="btn btn-outline btn-sm" onclick="showPage('page-login')"><i class="fa fa-lock"></i> Admin</button>
+          <button class="btn btn-primary btn-sm" onclick="showPage('page-apply')">Apply Now</button>
+          <button class="btn-biz btn"><i class="fa fa-building"></i> For Business</button>
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <div class="landing-content">
+        <!-- Hero -->
+        <div class="hero-row">
+          <div class="hero-text">
+            <h1>Unlock Your <span>Career!</span></h1>
+            <div class="hero-meta">
+              <i class="fa fa-bolt"></i>
+              <strong>30Mn+</strong> talent inspired to #BeUnstoppable
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg" onclick="showPage('page-apply')">
+            <i class="fa fa-arrow-right"></i> Apply Now
+          </button>
+        </div>
+
+        <!-- Category Grid -->
+        <div class="category-grid">
+          <div class="cat-card active" onclick="showPage('page-apply')">
+            <div class="cat-icon">🎒</div>
+            <div class="cat-label">Internships</div>
+          </div>
+          <div class="cat-card" onclick="showPage('page-apply')">
+            <div class="cat-icon">💼</div>
+            <div class="cat-label">Jobs</div>
+          </div>
+          <div class="cat-card" onclick="showPage('page-apply')">
+            <div class="cat-icon">🏆</div>
+            <div class="cat-label">Competitions</div>
+          </div>
+          <div class="cat-card" onclick="showPage('page-apply')">
+            <div class="cat-icon">📝</div>
+            <div class="cat-label">Mock Tests</div>
+          </div>
+          <div class="cat-card" onclick="showPage('page-apply')">
+            <div class="cat-icon">🎤</div>
+            <div class="cat-label">Mock Interviews</div>
+          </div>
+          <div class="cat-card" onclick="showPage('page-apply')">
+            <div class="cat-icon">⭐</div>
+            <div class="cat-label">Mentorships</div>
+          </div>
+          <div class="cat-card" onclick="showPage('page-apply')">
+            <div class="cat-icon">📚</div>
+            <div class="cat-label">Courses</div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-strip">
+          <div class="stat-cell"><div class="stat-val" data-count="1200">0</div><div class="stat-lbl">Applications Last Cycle</div></div>
+          <div class="stat-cell"><div class="stat-val" data-count="48">0</div><div class="stat-lbl">Interns Selected</div></div>
+          <div class="stat-cell"><div class="stat-val" data-count="92">0</div><div class="stat-lbl">% Return Offer Rate</div></div>
+          <div class="stat-cell"><div class="stat-val" data-count="15">0</div><div class="stat-lbl">Office Locations</div></div>
+        </div>
+
+        <!-- Featured Opportunities -->
+        <div class="sec-header">
+          <div class="sec-title">Featured Opportunities</div>
+          <span class="sec-link" onclick="showPage('page-apply')">View All <i class="fa fa-arrow-right"></i></span>
+        </div>
+        <div class="opp-grid">
+          <div class="opp-card" onclick="showPage('page-apply')">
+            <div class="opp-img-placeholder" style="background:linear-gradient(135deg,#0F172A,#4F46E5)">🚀</div>
+            <div class="opp-body">
+              <div class="opp-tags"><span class="opp-tag tag-intern">Internship</span><span class="opp-tag tag-live">Live</span><span class="opp-tag tag-hot">Hot</span></div>
+              <div class="opp-title">Software Engineering Intern – Full Stack</div>
+              <div class="opp-org"><i class="fa fa-building"></i> InternHub Technologies · Bangalore, Remote</div>
+              <div class="opp-footer">
+                <span class="opp-deadline"><i class="fa fa-clock"></i> Closes in 12 days</span>
+                <button class="opp-apply-btn" onclick="event.stopPropagation();showPage('page-apply')">Apply Now</button>
+              </div>
+            </div>
+          </div>
+          <div class="opp-card" onclick="showPage('page-apply')">
+            <div class="opp-img-placeholder" style="background:linear-gradient(135deg,#0891B2,#06B6D4)">🎨</div>
+            <div class="opp-body">
+              <div class="opp-tags"><span class="opp-tag tag-intern">Internship</span><span class="opp-tag tag-new">New</span></div>
+              <div class="opp-title">Product Design Intern – UI/UX & Research</div>
+              <div class="opp-org"><i class="fa fa-building"></i> DesignCo India · Mumbai, Hybrid</div>
+              <div class="opp-footer">
+                <span class="opp-deadline"><i class="fa fa-clock"></i> Closes in 8 days</span>
+                <button class="opp-apply-btn" onclick="event.stopPropagation();showPage('page-apply')">Apply Now</button>
+              </div>
+            </div>
+          </div>
+          <div class="opp-card" onclick="showPage('page-apply')">
+            <div class="opp-img-placeholder" style="background:linear-gradient(135deg,#047857,#10B981)">📊</div>
+            <div class="opp-body">
+              <div class="opp-tags"><span class="opp-tag tag-intern">Internship</span><span class="opp-tag tag-live">Live</span></div>
+              <div class="opp-title">Data Science Intern – ML & Analytics</div>
+              <div class="opp-org"><i class="fa fa-building"></i> DataSphere · Hyderabad, Remote</div>
+              <div class="opp-footer">
+                <span class="opp-deadline"><i class="fa fa-clock"></i> Closes in 20 days</span>
+                <button class="opp-apply-btn" onclick="event.stopPropagation();showPage('page-apply')">Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How it works -->
+        <div class="sec-header"><div class="sec-title">How It Works</div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:40px">
+          <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px">
+            <div style="width:44px;height:44px;background:var(--primary-light);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:1.1rem;margin-bottom:16px"><i class="fa fa-pen-to-square"></i></div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:6px">01 · Submit Application</div>
+            <div style="font-size:.84rem;color:var(--muted);line-height:1.6">Fill out the form, add your skills and upload your resume. Takes under 5 minutes.</div>
+          </div>
+          <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px">
+            <div style="width:44px;height:44px;background:#FEF3C7;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:1.1rem;margin-bottom:16px"><i class="fa fa-magnifying-glass"></i></div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:6px">02 · Team Review</div>
+            <div style="font-size:.84rem;color:var(--muted);line-height:1.6">Our team personally reviews every application within 5 business days.</div>
+          </div>
+          <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:24px">
+            <div style="width:44px;height:44px;background:var(--green-light);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:1.1rem;margin-bottom:16px"><i class="fa fa-envelope-open"></i></div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:6px">03 · Get Your Answer</div>
+            <div style="font-size:.84rem;color:var(--muted);line-height:1.6">Track your status anytime with your Application ID. We notify you either way.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+  APPLICATION FORM
+============================================================ -->
+<div id="page-apply" class="page">
+  <div class="app-shell">
+    <div class="icon-rail">
+      <div class="rail-logo" onclick="showPage('page-landing')">IH</div>
+      <div class="rail-divider"></div>
+      <button class="rail-btn" onclick="showPage('page-landing')"><i class="fa fa-house"></i><span class="rail-tip">Home</span></button>
+      <button class="rail-btn active"><i class="fa fa-file-pen"></i><span class="rail-tip">Apply</span></button>
+      <button class="rail-btn" onclick="showPage('page-track')"><i class="fa fa-radar"></i><span class="rail-tip">Track</span></button>
+      <div class="rail-divider"></div>
+      <button class="rail-btn" onclick="showPage('page-login')"><i class="fa fa-shield-halved"></i><span class="rail-tip">Admin</span></button>
+    </div>
+    <div class="main-area">
+      <nav class="top-nav">
+        <button class="btn btn-ghost btn-sm" onclick="showPage('page-landing')"><i class="fa fa-arrow-left"></i> Back</button>
+        <div class="top-nav-logo" onclick="showPage('page-landing')"><span style="color:var(--primary)">intern</span><span>hub</span></div>
+        <div class="nav-right"><button class="btn btn-primary btn-sm" type="submit" form="app-form">Submit Application</button></div>
+      </nav>
+      <div class="apply-wrap">
+        <aside class="apply-side">
+          <div class="apply-side-tag"><i class="fa fa-circle-check"></i> Applications Open</div>
+          <h2>Apply for an Internship</h2>
+          <p>Join our program and work on real projects alongside industry experts. We review every application personally.</p>
+          <div class="perk-item"><div class="perk-check"><i class="fa fa-check"></i></div>Competitive monthly stipend</div>
+          <div class="perk-item"><div class="perk-check"><i class="fa fa-check"></i></div>1-on-1 expert mentorship</div>
+          <div class="perk-item"><div class="perk-check"><i class="fa fa-check"></i></div>Remote-friendly positions</div>
+          <div class="perk-item"><div class="perk-check"><i class="fa fa-check"></i></div>Certificate of completion</div>
+          <div class="perk-item"><div class="perk-check"><i class="fa fa-check"></i></div>Return offer consideration</div>
+          <div class="apply-side-depts">
+            <p>Open Departments</p>
+            <div class="dept-tags">
+              <span class="dept-tag-sm">Software Eng.</span>
+              <span class="dept-tag-sm">Product Design</span>
+              <span class="dept-tag-sm">Data Science</span>
+              <span class="dept-tag-sm">Marketing</span>
+              <span class="dept-tag-sm">Finance</span>
+              <span class="dept-tag-sm">Operations</span>
+            </div>
+          </div>
+        </aside>
+
+        <div class="apply-main">
+          <div class="apply-main-header">
+            <h2>Your Application</h2>
+            <p>All fields marked with <span style="color:var(--red)">*</span> are required.</p>
+          </div>
+
+          <!-- Step bar -->
+          <div class="step-bar">
+            <div class="step-item">
+              <div class="step-circle active" id="step1">1</div>
+              <div class="step-label active">Personal Info</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-item">
+              <div class="step-circle" id="step2">2</div>
+              <div class="step-label">Skills</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-item">
+              <div class="step-circle" id="step3">3</div>
+              <div class="step-label">Resume</div>
+            </div>
+          </div>
+
+          <form id="app-form" onsubmit="submitApp(event)" novalidate>
+            <!-- Card 1 -->
+            <div class="form-card">
+              <div class="form-card-title"><i class="fa fa-user"></i> Personal Information</div>
+              <div class="f-row">
+                <div class="f-grp">
+                  <label>Full Name <span class="req">*</span></label>
+                  <input class="f-ctrl" id="f-name" type="text" placeholder="Arjun Sharma" autocomplete="name"/>
+                  <div class="f-err" id="e-name"></div>
+                </div>
+                <div class="f-grp">
+                  <label>Email Address <span class="req">*</span></label>
+                  <input class="f-ctrl" id="f-email" type="email" placeholder="arjun@example.com" autocomplete="email"/>
+                  <div class="f-err" id="e-email"></div>
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="f-grp">
+                  <label>Phone Number</label>
+                  <input class="f-ctrl" id="f-phone" type="tel" placeholder="+91 98765 43210"/>
+                </div>
+                <div class="f-grp">
+                  <label>College / University <span class="req">*</span></label>
+                  <input class="f-ctrl" id="f-college" type="text" placeholder="IIT Delhi"/>
+                  <div class="f-err" id="e-college"></div>
+                </div>
+              </div>
+              <div class="f-row">
+                <div class="f-grp">
+                  <label>Year of Study <span class="req">*</span></label>
+                  <select class="f-ctrl" id="f-year">
+                    <option value="">Select year</option>
+                    <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>Post Graduate</option>
+                  </select>
+                  <div class="f-err" id="e-year"></div>
+                </div>
+                <div class="f-grp">
+                  <label>Department Applying For <span class="req">*</span></label>
+                  <select class="f-ctrl" id="f-dept">
+                    <option value="">Select department</option>
+                    <option>Software Engineering</option><option>Product Design</option><option>Data Science</option><option>Marketing</option><option>Finance</option><option>Operations</option><option>Other</option>
+                  </select>
+                  <div class="f-err" id="e-dept"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="form-card">
+              <div class="form-card-title"><i class="fa fa-code"></i> Skills & Experience</div>
+              <div class="f-grp">
+                <label>Your Skills <span class="req">*</span> <span style="font-weight:400;color:var(--muted)">– click suggestions or type + Enter</span></label>
+                <div class="skills-input-wrap" id="skills-wrap" onclick="document.getElementById('skill-in').focus()">
+                  <input id="skill-in" placeholder="Type a skill and press Enter…" autocomplete="off"/>
+                </div>
+                <div class="skill-suggestions" id="skill-pills">
+                  <span class="sug-chip" onclick="addSkill('Python')">Python</span>
+                  <span class="sug-chip" onclick="addSkill('JavaScript')">JavaScript</span>
+                  <span class="sug-chip" onclick="addSkill('React')">React</span>
+                  <span class="sug-chip" onclick="addSkill('Machine Learning')">Machine Learning</span>
+                  <span class="sug-chip" onclick="addSkill('UI/UX Design')">UI/UX Design</span>
+                  <span class="sug-chip" onclick="addSkill('SQL')">SQL</span>
+                  <span class="sug-chip" onclick="addSkill('Node.js')">Node.js</span>
+                  <span class="sug-chip" onclick="addSkill('Figma')">Figma</span>
+                  <span class="sug-chip" onclick="addSkill('Excel')">Excel</span>
+                  <span class="sug-chip" onclick="addSkill('Java')">Java</span>
+                  <span class="sug-chip" onclick="addSkill('C++')">C++</span>
+                  <span class="sug-chip" onclick="addSkill('TensorFlow')">TensorFlow</span>
+                </div>
+                <div class="f-err" id="e-skills"></div>
+              </div>
+              <div class="f-grp">
+                <label>Cover Letter / Why InternHub? <span class="req">*</span></label>
+                <textarea class="f-ctrl" id="f-cover" rows="5" placeholder="Tell us about your goals, relevant experience, and what makes you a great fit…"></textarea>
+                <div style="display:flex;justify-content:space-between;margin-top:5px">
+                  <div class="f-err" id="e-cover"></div>
+                  <span class="f-hint"><span id="cover-len">0</span>/600 characters</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="form-card">
+              <div class="form-card-title"><i class="fa fa-file-arrow-up"></i> Resume Upload</div>
+              <div class="f-grp">
+                <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-inp').click()">
+                  <input type="file" id="file-inp" accept=".pdf,.doc,.docx" style="display:none" onchange="handleFile(this.files[0])"/>
+                  <div class="drop-icon" id="drop-icon"><i class="fa fa-cloud-arrow-up"></i></div>
+                  <div class="drop-text" id="drop-text">Drop your resume here or <strong>click to browse</strong></div>
+                  <div class="drop-hint">Accepts PDF, DOC, DOCX · Max 5 MB</div>
+                  <div id="file-ok" class="file-ok-badge" style="display:none"><i class="fa fa-circle-check"></i><span id="file-ok-name"></span></div>
+                </div>
+                <div class="f-err" id="e-resume"></div>
+              </div>
+            </div>
+
+            <!-- Agree + Submit -->
+            <div class="form-card">
+              <div class="agree-row">
+                <input type="checkbox" id="f-agree"/>
+                <label for="f-agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I confirm all information provided is accurate and truthful.</label>
+              </div>
+              <div class="f-err" id="e-agree" style="margin-bottom:14px"></div>
+              <button type="submit" class="btn btn-primary btn-full btn-lg" id="sub-btn">
+                <span id="sub-label"><i class="fa fa-paper-plane"></i> Submit Application</span>
+                <span id="sub-spin" style="display:none"><i class="fa fa-circle-notch fa-spin"></i> Submitting…</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+  SUCCESS PAGE
+============================================================ -->
+<div id="page-success" class="page">
+  <div class="app-shell">
+    <div class="icon-rail">
+      <div class="rail-logo" onclick="showPage('page-landing')">IH</div>
+      <div class="rail-divider"></div>
+      <button class="rail-btn" onclick="showPage('page-landing')"><i class="fa fa-house"></i></button>
+    </div>
+    <div class="main-area">
+      <nav class="top-nav">
+        <div class="top-nav-logo"><span style="color:var(--primary)">intern</span><span>hub</span></div>
+      </nav>
+      <div class="center-wrap">
+        <div class="center-card">
+          <div class="success-icon"><i class="fa fa-check"></i></div>
+          <h2>Application Submitted!</h2>
+          <p>Thank you for applying. Our team will review your application and respond within <strong>5 business days</strong>.</p>
+          <div class="app-id-box">
+            <div class="app-id-label">Your Application ID</div>
+            <div class="app-id-val" id="success-app-id">—</div>
+          </div>
+          <p style="font-size:.8rem;color:var(--muted2);margin-bottom:20px">Save this ID to track your application status anytime.</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="showPage('page-track')"><i class="fa fa-radar"></i> Track Status</button>
+            <button class="btn btn-ghost" onclick="showPage('page-landing')">Back to Home</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+  TRACK STATUS
+============================================================ -->
+<div id="page-track" class="page">
+  <div class="app-shell">
+    <div class="icon-rail">
+      <div class="rail-logo" onclick="showPage('page-landing')">IH</div>
+      <div class="rail-divider"></div>
+      <button class="rail-btn" onclick="showPage('page-landing')"><i class="fa fa-house"></i></button>
+      <button class="rail-btn" onclick="showPage('page-apply')"><i class="fa fa-file-pen"></i></button>
+      <button class="rail-btn active"><i class="fa fa-radar"></i></button>
+    </div>
+    <div class="main-area">
+      <nav class="top-nav">
+        <button class="btn btn-ghost btn-sm" onclick="showPage('page-landing')"><i class="fa fa-arrow-left"></i> Back</button>
+        <div class="top-nav-logo"><span style="color:var(--primary)">intern</span><span>hub</span></div>
+        <div class="nav-right"><button class="btn btn-primary btn-sm" onclick="showPage('page-apply')">Apply Now</button></div>
+      </nav>
+      <div class="center-wrap" style="align-items:flex-start;padding-top:60px">
+        <div class="track-wrap">
+          <h2>Track Your Application</h2>
+          <p>Enter your Application ID to check your current status.</p>
+          <div class="track-input-row">
+            <input type="text" id="track-in" placeholder="e.g. APP-A1B2C3D4" onkeydown="if(event.key==='Enter')trackApp()"/>
+            <button class="btn btn-primary" onclick="trackApp()"><i class="fa fa-search"></i> Check Status</button>
+          </div>
+          <div class="track-result" id="track-result"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+  ADMIN LOGIN
+============================================================ -->
+<div id="page-login" class="page">
+  <div class="app-shell">
+    <div class="icon-rail">
+      <div class="rail-logo" onclick="showPage('page-landing')">IH</div>
+      <div class="rail-divider"></div>
+      <button class="rail-btn" onclick="showPage('page-landing')"><i class="fa fa-house"></i></button>
+    </div>
+    <div class="main-area">
+      <nav class="top-nav">
+        <button class="btn btn-ghost btn-sm" onclick="showPage('page-landing')"><i class="fa fa-arrow-left"></i> Back</button>
+        <div class="top-nav-logo"><span style="color:var(--primary)">intern</span><span>hub</span></div>
+        <div style="width:120px"></div>
+      </nav>
+      <div class="center-wrap">
+        <div class="login-card">
+          <div class="login-logo"><i class="fa fa-shield-halved"></i></div>
+          <h2>Admin Access</h2>
+          <p>Authorized personnel only. All activity is monitored.</p>
+          <div class="login-hint"><i class="fa fa-circle-info"></i> Demo credentials: <code>admin</code> / <code>admin123</code></div>
+          <div class="f-grp">
+            <label>Username</label>
+            <input class="f-ctrl" id="l-user" type="text" placeholder="admin" autocomplete="username"/>
+          </div>
+          <div class="f-grp">
+            <label>Password</label>
+            <div class="pw-wrap">
+              <input class="f-ctrl" id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+              <button type="button" class="pw-eye" onclick="togglePw(this)"><i class="fa fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="f-err" id="e-login" style="margin-bottom:14px"></div>
+          <button class="btn btn-primary btn-full btn-lg" onclick="doLogin()">Login <i class="fa fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+  ADMIN DASHBOARD
+============================================================ -->
+<div id="page-admin" class="page" style="min-height:100vh">
+  <div class="dash-shell">
+    <aside class="dash-side">
+      <div class="dash-side-head">
+        <div class="dash-brand">
+          <div style="width:30px;height:30px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:800;flex-shrink:0">IH</div>
+          InternHub
+        </div>
+        <div class="dash-brand-sub">Admin Portal</div>
+      </div>
+      <nav class="dash-nav">
+        <button class="dash-nav-item active" onclick="switchTab('applications',this)"><i class="fa fa-users"></i><span>Applications</span><span class="dash-nav-badge" id="badge-count">0</span></button>
+        <button class="dash-nav-item" onclick="switchTab('analytics',this)"><i class="fa fa-chart-pie"></i><span>Analytics</span></button>
+        <button class="dash-nav-item" onclick="switchTab('settings',this)"><i class="fa fa-gear"></i><span>Settings</span></button>
+      </nav>
+      <div class="dash-side-foot">
+        <button class="dash-logout" onclick="doLogout()"><i class="fa fa-right-from-bracket"></i><span>Logout</span></button>
+      </div>
+    </aside>
+
+    <main class="dash-main">
+      <!-- Applications Tab -->
+      <div class="dash-tab active" id="tab-applications">
+        <div class="dash-header">
+          <div class="dash-header-left">
+            <h2>All Applications</h2>
+            <p id="apps-label">Loading…</p>
+          </div>
+          <div class="dash-header-right">
+            <button class="btn btn-white btn-sm" onclick="exportCSV()"><i class="fa fa-download"></i> Export CSV</button>
+          </div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-card kp" onclick="qFilter('Pending')"><div class="kpi-icon"><i class="fa fa-clock"></i></div><div class="kpi-num" id="kc-p">0</div><div class="kpi-lbl">Pending</div></div>
+          <div class="kpi-card ks" onclick="qFilter('Selected')"><div class="kpi-icon"><i class="fa fa-check-circle"></i></div><div class="kpi-num" id="kc-s">0</div><div class="kpi-lbl">Selected</div></div>
+          <div class="kpi-card kr" onclick="qFilter('Rejected')"><div class="kpi-icon"><i class="fa fa-times-circle"></i></div><div class="kpi-num" id="kc-r">0</div><div class="kpi-lbl">Rejected</div></div>
+          <div class="kpi-card kt" onclick="qFilter('')"><div class="kpi-icon"><i class="fa fa-users"></i></div><div class="kpi-num" id="kc-t">0</div><div class="kpi-lbl">Total</div></div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-box2">
+            <i class="fa fa-search"></i>
+            <input type="text" id="s-search" placeholder="Search name, email, skills, department…" oninput="renderTable()"/>
+          </div>
+          <select class="f-sel" id="s-dept" onchange="renderTable()">
+            <option value="">All Departments</option>
+            <option>Software Engineering</option><option>Product Design</option><option>Data Science</option><option>Marketing</option><option>Finance</option><option>Operations</option><option>Other</option>
+          </select>
+          <select class="f-sel" id="s-status" onchange="renderTable()">
+            <option value="">All Statuses</option>
+            <option>Pending</option><option>Selected</option><option>Rejected</option>
+          </select>
+          <select class="f-sel" id="s-sort" onchange="renderTable()">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="az">Name A–Z</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-tbl">
+            <thead>
+              <tr>
+                <th>App ID</th>
+                <th>Applicant</th>
+                <th>Department</th>
+                <th>Skills</th>
+                <th>Applied</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Analytics Tab -->
+      <div class="dash-tab" id="tab-analytics">
+        <div class="dash-header">
+          <div class="dash-header-left"><h2>Analytics</h2><p>Pipeline overview & trends</p></div>
+        </div>
+        <div class="analytics-grid">
+          <div class="chart-box"><h3><i class="fa fa-chart-pie"></i> Status Breakdown</h3><div class="donut-wrap" id="donut-wrap"></div></div>
+          <div class="chart-box"><h3><i class="fa fa-building"></i> Top Departments</h3><div id="dept-bars"></div></div>
+          <div class="chart-box"><h3><i class="fa fa-code"></i> Top Skills</h3><div id="skill-bars"></div></div>
+          <div class="chart-box"><h3><i class="fa fa-calendar-days"></i> Last 7 Days</h3><div class="time-bars-wrap" id="time-bars"></div></div>
+        </div>
+      </div>
+
+      <!-- Settings Tab -->
+      <div class="dash-tab" id="tab-settings">
+        <div class="dash-header"><div class="dash-header-left"><h2>Settings</h2><p>Manage portal configuration</p></div></div>
+        <div class="settings-col">
+          <div class="set-card">
+            <h3>Change Admin Password</h3>
+            <p class="sc-p">Update your credentials. New password must be at least 6 characters.</p>
+            <div class="f-grp"><label>Current Password</label><input class="f-ctrl" type="password" id="s-old"/></div>
+            <div class="f-grp"><label>New Password</label><input class="f-ctrl" type="password" id="s-new"/></div>
+            <div class="f-grp"><label>Confirm Password</label><input class="f-ctrl" type="password" id="s-conf"/></div>
+            <div class="f-err" id="e-pw" style="margin-bottom:12px"></div>
+            <button class="btn btn-primary btn-sm" onclick="changePw()"><i class="fa fa-key"></i> Update Password</button>
+          </div>
+          <div class="set-card">
+            <h3>Portal Settings</h3>
+            <p class="sc-p">Control portal behavior and notifications.</p>
+            <div class="tog-row"><span>Accept new applications</span><label class="tog"><input type="checkbox" id="tog1" checked/><span class="tog-sl"></span></label></div>
+            <div class="tog-row"><span>Email notifications (demo)</span><label class="tog"><input type="checkbox" id="tog2"/><span class="tog-sl"></span></label></div>
+            <div class="tog-row"><span>Public application tracking</span><label class="tog"><input type="checkbox" id="tog3" checked/><span class="tog-sl"></span></label></div>
+          </div>
+          <div class="set-card danger-set">
+            <h3>Danger Zone</h3>
+            <p class="sc-p">Permanently delete all application data. This action <strong>cannot</strong> be undone.</p>
+            <button class="btn btn-danger btn-sm" onclick="clearAllData()"><i class="fa fa-trash"></i> Clear All Data</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()"><i class="fa fa-xmark"></i></button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-stack" id="toast-stack"></div>
+
+<script>
+// ================================================================
+//  INTERNHUB LOGIC
+// ================================================================
+const DB = {
+  apps: [],
+  creds: { u: 'admin', p: 'admin123' },
+  skills: [],
+  resume: null,
+};
+
+// Persistence
+const save = () => { localStorage.setItem('ih_apps', JSON.stringify(DB.apps)); localStorage.setItem('ih_creds', JSON.stringify(DB.creds)); };
+const load = () => {
+  try {
+    const a = localStorage.getItem('ih_apps'), c = localStorage.getItem('ih_creds');
+    if (a) DB.apps = JSON.parse(a);
+    if (c) DB.creds = JSON.parse(c);
+  } catch(e){}
+  if (!DB.apps.length) seedDemo();
+};
+
+// Seed
+function seedDemo() {
+  const names=['Priya Patel','Rahul Singh','Ananya Sharma','Karan Mehta','Sneha Reddy','Arjun Nair','Divya Kumar','Rohan Gupta','Meera Joshi','Vikram Bose','Ishaan Verma','Riya Kapoor'];
+  const depts=['Software Engineering','Product Design','Data Science','Marketing','Finance','Operations'];
+  const statuses=['Pending','Pending','Pending','Selected','Rejected'];
+  const sp=['Python','JavaScript','React','Node.js','SQL','Machine Learning','UI/UX Design','Figma','Java','TensorFlow','Excel','Tableau'];
+  const colleges=['IIT Delhi','NIT Trichy','BITS Pilani','VIT Vellore','Amity University'];
+  names.forEach((name,i)=>{
+    const d=new Date(); d.setDate(d.getDate()-Math.floor(Math.random()*30));
+    DB.apps.push({id:genId(),name,email:name.toLowerCase().replace(' ','.')+i+'@example.com',phone:'+91 9'+String(Math.floor(Math.random()*1e9)).padStart(9,'0'),college:colleges[i%5],year:['2nd Year','3rd Year','4th Year'][i%3],dept:depts[i%depts.length],skills:shuffle(sp).slice(0,2+Math.floor(Math.random()*4)),cover:`I am deeply passionate about ${depts[i%depts.length]}. This internship aligns perfectly with my career goals and I am eager to contribute meaningfully to your team with my skills and dedication.`,resumeName:`resume_${name.split(' ')[0].toLowerCase()}.pdf`,status:statuses[Math.floor(Math.random()*statuses.length)],appliedAt:d.toISOString()});
+  });
+  save();
+}
+
+const shuffle = a => [...a].sort(()=>Math.random()-.5);
+const genId = () => 'APP-'+Math.random().toString(36).substr(2,8).toUpperCase();
+const fmt = iso => new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+
+// ── Navigation ──────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById(id);
+  if (!pg) return;
+  pg.classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'page-admin') {
+    if (!sessionStorage.getItem('ih_auth')) { showPage('page-login'); return; }
+    refreshAdmin();
+  }
+  if (id === 'page-apply') resetForm();
+}
+
+// ── Init ────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  load();
+  initSkillInput();
+  initDrop();
+  animateCounts();
+
+  // Cover letter counter
+  document.getElementById('f-cover')?.addEventListener('input', function(){
+    if(this.value.length>600) this.value=this.value.slice(0,600);
+    const el=document.getElementById('cover-len');
+    if(el) el.textContent=this.value.length;
+  });
+  // Escape closes modal
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+});
+
+// ── Counters ────────────────────────────────────────────────────────
+function animateCounts() {
+  const els = document.querySelectorAll('[data-count]');
+  if (!els.length) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el=e.target, target=+el.dataset.count;
+      const isLast = el.closest('.stat-cell')?.querySelector('.stat-lbl')?.textContent?.includes('%');
+      let cur=0; const step=target/60;
+      const t=setInterval(()=>{ cur=Math.min(cur+step,target); el.textContent=Math.floor(cur)+(isLast?'%':'+'); if(cur>=target) clearInterval(t); },20);
+      io.unobserve(el);
+    });
+  },{threshold:0.5});
+  els.forEach(el=>io.observe(el));
+}
+
+// ── Skills ──────────────────────────────────────────────────────────
+function initSkillInput() {
+  const inp = document.getElementById('skill-in');
+  if (!inp) return;
+  inp.addEventListener('keydown', e => {
+    if (e.key==='Enter'||e.key===',') { e.preventDefault(); const v=inp.value.trim().replace(/,$/,''); if(v){addSkill(v);inp.value='';} }
+    if (e.key==='Backspace'&&!inp.value&&DB.skills.length) removeSkill(DB.skills[DB.skills.length-1]);
+  });
+}
+function addSkill(s) {
+  s=s.trim(); if(!s||DB.skills.includes(s)) return;
+  DB.skills.push(s); renderSkills();
+  document.querySelectorAll('.sug-chip').forEach(p=>{ if(p.textContent.trim()===s) p.classList.add('used'); });
+}
+function removeSkill(s) {
+  DB.skills=DB.skills.filter(x=>x!==s); renderSkills();
+  document.querySelectorAll('.sug-chip').forEach(p=>{ if(p.textContent.trim()===s) p.classList.remove('used'); });
+}
+function renderSkills() {
+  const wrap=document.getElementById('skills-wrap'), inp=document.getElementById('skill-in');
+  if(!wrap||!inp) return;
+  wrap.querySelectorAll('.skill-chip-added').forEach(t=>t.remove());
+  DB.skills.forEach(s=>{ const t=document.createElement('span'); t.className='skill-chip-added'; t.innerHTML=`${s}<button type="button" onclick="removeSkill('${s}')">×</button>`; wrap.insertBefore(t,inp); });
+}
+
+// ── File drop ───────────────────────────────────────────────────────
+function initDrop() {
+  const zone=document.getElementById('drop-zone');
+  if(!zone) return;
+  zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.classList.add('active-drop'); });
+  zone.addEventListener('dragleave', ()=>zone.classList.remove('active-drop'));
+  zone.addEventListener('drop', e=>{ e.preventDefault(); zone.classList.remove('active-drop'); handleFile(e.dataTransfer.files[0]); });
+}
+function handleFile(file) {
+  if(!file) return;
+  if(!/\.(pdf|doc|docx)$/i.test(file.name)) { toast('Upload a PDF or Word document','error'); return; }
+  if(file.size>5e6) { toast('File must be under 5MB','error'); return; }
+  DB.resume=file.name;
+  const zone=document.getElementById('drop-zone');
+  zone.classList.add('has-file');
+  document.getElementById('drop-icon').innerHTML='<i class="fa fa-circle-check" style="color:var(--green)"></i>';
+  document.getElementById('drop-text').innerHTML='Resume <strong>uploaded successfully!</strong>';
+  const ok=document.getElementById('file-ok'); ok.style.display='inline-flex';
+  document.getElementById('file-ok-name').textContent=file.name;
+}
+
+// ── Form ────────────────────────────────────────────────────────────
+function resetForm() {
+  DB.skills=[]; DB.resume=null;
+  document.getElementById('app-form')?.reset();
+  renderSkills();
+  const zone=document.getElementById('drop-zone');
+  if(zone){ zone.classList.remove('has-file','active-drop'); }
+  const di=document.getElementById('drop-icon'); if(di) di.innerHTML='<i class="fa fa-cloud-arrow-up"></i>';
+  const dt=document.getElementById('drop-text'); if(dt) dt.innerHTML='Drop your resume here or <strong>click to browse</strong>';
+  const ok=document.getElementById('file-ok'); if(ok) ok.style.display='none';
+  document.querySelectorAll('.f-err').forEach(e=>e.textContent='');
+  document.querySelectorAll('.sug-chip').forEach(p=>p.classList.remove('used'));
+  const cl=document.getElementById('cover-len'); if(cl) cl.textContent='0';
+}
+
+function submitApp(e) {
+  e.preventDefault();
+  if(!validate()) return;
+  const btn=document.getElementById('sub-btn');
+  document.getElementById('sub-label').style.display='none';
+  document.getElementById('sub-spin').style.display='inline';
+  btn.disabled=true;
+  setTimeout(()=>{
+    const app={id:genId(),name:document.getElementById('f-name').value.trim(),email:document.getElementById('f-email').value.trim(),phone:document.getElementById('f-phone').value.trim()||'Not provided',college:document.getElementById('f-college').value.trim(),year:document.getElementById('f-year').value,dept:document.getElementById('f-dept').value,skills:[...DB.skills],cover:document.getElementById('f-cover').value.trim(),resumeName:DB.resume||'resume.pdf',status:'Pending',appliedAt:new Date().toISOString()};
+    DB.apps.unshift(app); save();
+    document.getElementById('success-app-id').textContent=app.id;
+    document.getElementById('sub-label').style.display='inline';
+    document.getElementById('sub-spin').style.display='none';
+    btn.disabled=false;
+    showPage('page-success');
+    toast('Application submitted!','success');
+  },1600);
+}
+
+function validate() {
+  let ok=true;
+  const rules=[{id:'f-name',err:'e-name',msg:'Full name is required'},{id:'f-email',err:'e-email',msg:'Valid email required',rx:/^[^\s@]+@[^\s@]+\.[^\s@]+$/},{id:'f-college',err:'e-college',msg:'College is required'},{id:'f-year',err:'e-year',msg:'Select your year'},{id:'f-dept',err:'e-dept',msg:'Select a department'},{id:'f-cover',err:'e-cover',msg:'Min 30 characters',minLen:30}];
+  rules.forEach(r=>{ const el=document.getElementById(r.id),ee=document.getElementById(r.err); let msg=''; if(!el.value.trim()) msg=r.msg; else if(r.rx&&!r.rx.test(el.value.trim())) msg=r.msg; else if(r.minLen&&el.value.trim().length<r.minLen) msg=r.msg; ee.textContent=msg; if(msg) ok=false; });
+  const se=document.getElementById('e-skills'); if(!DB.skills.length){se.textContent='Add at least one skill';ok=false;}else se.textContent='';
+  const re=document.getElementById('e-resume'); if(!DB.resume){re.textContent='Please upload your resume';ok=false;}else re.textContent='';
+  const ae=document.getElementById('e-agree'); if(!document.getElementById('f-agree').checked){ae.textContent='You must agree to the terms';ok=false;}else ae.textContent='';
+  return ok;
+}
+
+// ── Track ───────────────────────────────────────────────────────────
+function trackApp() {
+  const id=(document.getElementById('track-in').value||'').trim().toUpperCase();
+  const box=document.getElementById('track-result');
+  if(!id){toast('Please enter your Application ID','error');return;}
+  const app=DB.apps.find(a=>a.id===id);
+  box.style.display='block';
+  if(!app){box.innerHTML=`<div style="text-align:center;padding:24px;color:var(--muted)"><i class="fa fa-circle-question" style="font-size:2.5rem;opacity:.3;display:block;margin-bottom:12px"></i>No application found for <strong style="color:var(--text)">${id}</strong>.<br/>Please check the ID and try again.</div>`;return;}
+  const sc={Pending:'var(--orange)',Selected:'var(--green)',Rejected:'var(--red)'}[app.status];
+  const msg={Pending:'⏳ Your application is currently under review. We\'ll notify you within 5 business days.',Selected:'🎉 Congratulations! You have been selected. Our HR team will contact you with next steps.',Rejected:'We appreciate your interest. Unfortunately, we\'re unable to move forward this cycle. Please apply again next time.'}[app.status];
+  const steps=['Submitted','Under Review','Decision Made'];
+  const curStep={Pending:1,Selected:2,Rejected:2}[app.status];
+  const tl=steps.map((s,i)=>{const cls=i<curStep?'done':i===curStep?app.status==='Rejected'?'fail':'current':'';return`<div class="tl-step"><div class="tl-dot ${cls}"><i class="fa fa-check"></i></div><div class="tl-label">${s}</div></div>`;}).join('');
+  box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:12px;flex-wrap:wrap"><div><div style="font-size:.72rem;color:var(--muted);margin-bottom:4px">${app.id} · Applied ${fmt(app.appliedAt)}</div><div style="font-size:1.2rem;font-weight:800;color:var(--text)">${app.name}</div></div><span class="st-pill ${app.status}">${app.status}</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.84rem;margin-bottom:16px"><div><div style="color:var(--muted);margin-bottom:2px">Department</div><div style="font-weight:600">${app.dept}</div></div><div><div style="color:var(--muted);margin-bottom:2px">College</div><div style="font-weight:600">${app.college}</div></div></div><div class="status-tl">${tl}</div><div style="background:var(--bg);border-radius:var(--r-sm);padding:14px;margin-top:16px;font-size:.85rem;color:var(--text2);line-height:1.6;border-left:3px solid ${sc}">${msg}</div>`;
+}
+
+// ── Auth ────────────────────────────────────────────────────────────
+function doLogin() {
+  const u=document.getElementById('l-user').value.trim(), p=document.getElementById('l-pass').value;
+  const ee=document.getElementById('e-login');
+  if(u===DB.creds.u&&p===DB.creds.p){sessionStorage.setItem('ih_auth','1');ee.textContent='';showPage('page-admin');toast('Welcome back, Admin!','success');}
+  else ee.textContent='Invalid username or password.';
+}
+function doLogout(){sessionStorage.removeItem('ih_auth');showPage('page-landing');toast('Logged out','info');}
+function togglePw(btn){const inp=btn.closest('.pw-wrap').querySelector('input');const t=inp.type==='text';inp.type=t?'password':'text';btn.querySelector('i').className=t?'fa fa-eye':'fa fa-eye-slash';}
+
+// ── Admin ───────────────────────────────────────────────────────────
+function refreshAdmin(){
+  const a=DB.apps;
+  document.getElementById('kc-p').textContent=a.filter(x=>x.status==='Pending').length;
+  document.getElementById('kc-s').textContent=a.filter(x=>x.status==='Selected').length;
+  document.getElementById('kc-r').textContent=a.filter(x=>x.status==='Rejected').length;
+  document.getElementById('kc-t').textContent=a.length;
+  document.getElementById('badge-count').textContent=a.length;
+  document.getElementById('apps-label').textContent=`${a.length} total application${a.length!==1?'s':''}`;
+  renderTable();
+}
+
+function getFiltered(){
+  const q=(document.getElementById('s-search').value||'').toLowerCase();
+  const dept=document.getElementById('s-dept').value;
+  const status=document.getElementById('s-status').value;
+  const sort=document.getElementById('s-sort').value;
+  let apps=[...DB.apps];
+  if(q) apps=apps.filter(a=>a.name.toLowerCase().includes(q)||a.email.toLowerCase().includes(q)||a.dept.toLowerCase().includes(q)||a.id.toLowerCase().includes(q)||a.skills.some(s=>s.toLowerCase().includes(q)));
+  if(dept) apps=apps.filter(a=>a.dept===dept);
+  if(status) apps=apps.filter(a=>a.status===status);
+  if(sort==='newest') apps.sort((a,b)=>new Date(b.appliedAt)-new Date(a.appliedAt));
+  else if(sort==='oldest') apps.sort((a,b)=>new Date(a.appliedAt)-new Date(b.appliedAt));
+  else if(sort==='az') apps.sort((a,b)=>a.name.localeCompare(b.name));
+  return apps;
+}
+
+function renderTable(){
+  const apps=getFiltered(), tbody=document.getElementById('tbl-body');
+  if(!apps.length){tbody.innerHTML=`<tr class="empty-row"><td colspan="7"><i class="fa fa-inbox"></i>No applications match your filters.</td></tr>`;return;}
+  tbody.innerHTML=apps.map(a=>`<tr><td class="td-id">${a.id}</td><td class="td-name"><strong>${a.name}</strong><span>${a.email}</span></td><td style="font-size:.84rem;color:var(--text2)">${a.dept}</td><td><div class="td-skills">${a.skills.slice(0,3).map(s=>`<span class="sk-badge">${s}</span>`).join('')}${a.skills.length>3?`<span class="more-sk">+${a.skills.length-3}</span>`:''}</div></td><td style="font-size:.8rem;color:var(--muted)">${fmt(a.appliedAt)}</td><td><span class="st-pill ${a.status}">${a.status}</span></td><td><div class="td-acts"><button class="act-btn2 ab-view" onclick="openModal('${a.id}')"><i class="fa fa-eye"></i></button><button class="act-btn2 ab-sel" onclick="setStatus('${a.id}','Selected')"><i class="fa fa-check"></i></button><button class="act-btn2 ab-rej" onclick="setStatus('${a.id}','Rejected')"><i class="fa fa-times"></i></button></div></td></tr>`).join('');
+}
+
+function qFilter(v){document.getElementById('s-status').value=v;renderTable();}
+function setStatus(id,status){const a=DB.apps.find(x=>x.id===id);if(!a)return;a.status=status;save();refreshAdmin();toast(`${a.name} → ${status}`,status==='Selected'?'success':'error');}
+
+function switchTab(name,el){
+  document.querySelectorAll('.dash-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.dash-nav-item').forEach(l=>l.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+  if(name==='analytics') drawAnalytics();
+}
+
+// ── Analytics ───────────────────────────────────────────────────────
+function drawAnalytics(){
+  const apps=DB.apps;
+  const p=apps.filter(a=>a.status==='Pending').length, s=apps.filter(a=>a.status==='Selected').length, r=apps.filter(a=>a.status==='Rejected').length, tot=apps.length||1;
+  // Donut SVG
+  const toArc=(pct,off,col)=>{if(pct<=0)return'';const circ=2*Math.PI*54,da=pct/100*circ;return`<circle cx="70" cy="70" r="54" fill="none" stroke="${col}" stroke-width="20" stroke-dasharray="${da} ${circ}" stroke-dashoffset="${-off/100*circ}" transform="rotate(-90 70 70)" opacity=".85"/>`;};
+  const p1=p/tot*100,p2=s/tot*100,p3=r/tot*100;
+  document.getElementById('donut-wrap').innerHTML=`<svg width="140" height="140"><circle cx="70" cy="70" r="54" fill="none" stroke="#E2E8F0" stroke-width="20"/>${toArc(p1,0,'var(--orange)')}${toArc(p2,p1,'var(--green)')}${toArc(p3,p1+p2,'var(--red)')}<text x="70" y="66" text-anchor="middle" font-size="22" font-weight="800" fill="var(--text)" font-family="Plus Jakarta Sans,sans-serif">${tot}</text><text x="70" y="84" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="Plus Jakarta Sans,sans-serif" letter-spacing="1">TOTAL</text></svg><div class="donut-legend"><div class="leg-item"><div class="leg-dot" style="background:var(--orange)"></div>Pending (${p})</div><div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Selected (${s})</div><div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Rejected (${r})</div></div>`;
+  // Dept bars
+  const dc={};apps.forEach(a=>dc[a.dept]=(dc[a.dept]||0)+1);
+  const ds=Object.entries(dc).sort((a,b)=>b[1]-a[1]).slice(0,6);const dm=ds[0]?.[1]||1;
+  document.getElementById('dept-bars').innerHTML=ds.map(([d,c])=>`<div class="bar-item2"><div class="bar-meta2"><span>${d}</span><span>${c}</span></div><div class="bar-track2"><div class="bar-fill2" style="width:${c/dm*100}%;background:var(--primary)"></div></div></div>`).join('');
+  // Skills bars
+  const sc={};apps.forEach(a=>a.skills.forEach(s=>sc[s]=(sc[s]||0)+1));
+  const ss=Object.entries(sc).sort((a,b)=>b[1]-a[1]).slice(0,6);const sm=ss[0]?.[1]||1;
+  document.getElementById('skill-bars').innerHTML=ss.map(([s,c])=>`<div class="bar-item2"><div class="bar-meta2"><span>${s}</span><span>${c}</span></div><div class="bar-track2"><div class="bar-fill2" style="width:${c/sm*100}%;background:var(--accent)"></div></div></div>`).join('');
+  // 7-day
+  const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return{label:d.toLocaleDateString('en',{weekday:'short'}),count:apps.filter(a=>new Date(a.appliedAt).toDateString()===d.toDateString()).length};});
+  const mx=Math.max(...days.map(d=>d.count),1);
+  document.getElementById('time-bars').innerHTML=days.map(d=>`<div class="tb-col"><div class="tb-val">${d.count||''}</div><div class="tb-bar" style="height:${Math.max(d.count/mx*70,3)}px"></div><div class="tb-lbl">${d.label}</div></div>`).join('');
+}
+
+// ── Modal ───────────────────────────────────────────────────────────
+function openModal(id){
+  const app=DB.apps.find(a=>a.id===id);if(!app)return;
+  document.getElementById('modal-body').innerHTML=`<div class="m-meta">${app.id} · Applied ${fmt(app.appliedAt)}</div><div class="m-name">${app.name}</div><div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap"><span class="st-pill ${app.status}">${app.status}</span><span style="font-size:.82rem;color:var(--muted)">${app.email} · ${app.phone}</span></div><div class="m-info-grid"><div class="m-cell"><label>College</label><p>${app.college}</p></div><div class="m-cell"><label>Year</label><p>${app.year}</p></div><div class="m-cell"><label>Department</label><p>${app.dept}</p></div><div class="m-cell"><label>Resume</label><p><i class="fa fa-file-pdf" style="color:var(--red)"></i> ${app.resumeName}</p></div></div><div style="margin-bottom:16px"><label style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:8px">Skills</label><div style="display:flex;flex-wrap:wrap;gap:6px">${app.skills.map(s=>`<span class="skill-chip-added">${s}</span>`).join('')}</div></div><div style="margin-bottom:16px"><label style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:8px">Cover Letter</label><div class="m-cover">${app.cover}</div></div><div class="m-actions"><button class="btn btn-success btn-sm" onclick="setStatus('${app.id}','Selected');closeModal()"><i class="fa fa-check"></i> Select</button><button class="btn btn-danger btn-sm" onclick="setStatus('${app.id}','Rejected');closeModal()"><i class="fa fa-times"></i> Reject</button><select class="m-status-sel" onchange="updateModalStatus('${app.id}',this.value)"><option ${app.status==='Pending'?'selected':''}>Pending</option><option ${app.status==='Selected'?'selected':''}>Selected</option><option ${app.status==='Rejected'?'selected':''}>Rejected</option></select></div>`;
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function updateModalStatus(id,status){const a=DB.apps.find(x=>x.id===id);if(!a)return;a.status=status;save();refreshAdmin();toast(`Status → ${status}`,'success');openModal(id);}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');document.body.style.overflow='';refreshAdmin();}
+
+// ── Export ──────────────────────────────────────────────────────────
+function exportCSV(){
+  const apps=getFiltered();
+  const h=['ID','Name','Email','Phone','College','Year','Department','Skills','Status','Applied'];
+  const rows=apps.map(a=>[a.id,`"${a.name}"`,a.email,a.phone,`"${a.college}"`,a.year,`"${a.dept}"`,`"${a.skills.join(', ')}"`,a.status,fmt(a.appliedAt)].join(','));
+  const blob=new Blob([[h.join(','),...rows].join('\n')],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a'); link.href=url; link.download=`internhub-${new Date().toISOString().slice(0,10)}.csv`; link.click(); URL.revokeObjectURL(url);
+  toast(`Exported ${apps.length} records`,'success');
+}
+
+// ── Settings ────────────────────────────────────────────────────────
+function changePw(){
+  const old=document.getElementById('s-old').value, nw=document.getElementById('s-new').value, cf=document.getElementById('s-conf').value, ee=document.getElementById('e-pw');
+  if(old!==DB.creds.p){ee.textContent='Current password is incorrect';return;}
+  if(nw.length<6){ee.textContent='New password must be at least 6 characters';return;}
+  if(nw!==cf){ee.textContent='Passwords do not match';return;}
+  DB.creds.p=nw; save(); ee.textContent='';
+  ['s-old','s-new','s-conf'].forEach(id=>document.getElementById(id).value='');
+  toast('Password updated!','success');
+}
+function clearAllData(){if(!confirm('Delete ALL application data? This cannot be undone.'))return;DB.apps=[];save();refreshAdmin();toast('All data cleared','error');}
+
+// ── Toast ───────────────────────────────────────────────────────────
+function toast(msg,type='info'){
+  const icons={success:'<i class="fa fa-check"></i>',error:'<i class="fa fa-xmark"></i>',info:'<i class="fa fa-bell"></i>'};
+  const t=document.createElement('div'); t.className=`toast2 ${type}`;
+  t.innerHTML=`<div class="toast-ic">${icons[type]}</div><span>${msg}</span><div class="toast-prog"></div>`;
+  document.getElementById('toast-stack').appendChild(t);
+  setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(),300); },3200);
+}
+</script>
+</body>
+</html>
